@@ -1,0 +1,10 @@
+{
+    "buildPath": "./release/",
+    "srcPath": "./src/js/",
+    "publicPath": "/club/client/webProject/release/",
+    "libsPath": "lib/",
+    "entrys": "page/**/*.js",
+    "vueEntrys": "../vue/**/*.js",
+    "htmlMap": {
+    }
+}
