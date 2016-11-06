@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlResWebpackPlugin = require('html-res-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin-hash');
 var path = require('path');
 var glob = require('glob');
@@ -10,9 +10,6 @@ var isProd = process.env.NODE_ENV;
 var projectConfig = require('./project.config.json');
 
 var srcPath = path.resolve(projectConfig.srcPath);
-
-//第三方库
-var externals = require('./externals.config.json');
 
 //导出配置
 module.exports = {
@@ -99,8 +96,7 @@ module.exports = {
                         'transform-es2015-destructuring',
                         'transform-es2015-block-scoping',
                         'transform-es2015-typeof-symbol',
-                        ['transform-regenerator', {async: false, asyncGenerators: false}],
-                        'transform-remove-strict-mode'
+                        ['transform-regenerator', {async: false, asyncGenerators: false}]
                     ]
                 } : {
                     cacheDirectory: true,
@@ -172,7 +168,7 @@ glob.sync(projectConfig.entrys, {
         };
         chunks[entryName] = entryConfig;
         //加载html生成插件
-        module.exports.plugins.push(new HtmlWebpackPlugin({
+        module.exports.plugins.push(new HtmlResWebpackPlugin({
             filename: 'html/' + path.dirname(entryPath).split('/')[1]+'/'+aliaName + '.html',
             template: projectConfig.htmlMap[path.dirname(entryPath)+'/'+aliaName] || path.join('src/html/', aliaName + '/' + aliaName + '.html'),
             htmlMinify: isProd ? {
@@ -198,15 +194,15 @@ glob.sync(projectConfig.vueEntrys, {
         };
         chunks[entryName] = entryConfig;
         //加载html生成插件
-        module.exports.plugins.push(new HtmlWebpackPlugin({
-            filename: 'html/vue/' + path.dirname(entryPath).split('/')[1]+'/'+aliaName + '.html',
-            template: projectConfig.htmlMap[path.dirname(entryPath)+'/'+aliaName] || path.join('src/js/vue/', aliaName + '/' + aliaName + '.html'),
+        module.exports.plugins.push(new HtmlResWebpackPlugin({
+            filename: 'html/vue/' + aliaName + '/'+aliaName + '.html',
+            template: projectConfig.htmlMap[path.dirname(entryPath)+'/'+aliaName] || path.join('src/vue/', aliaName + '/' + aliaName + '.html'),
             htmlMinify: isProd ? {
                 removeComments: true,
                 collapseWhitespace: true,
                 removeAttributeQuotes: true
             } : false,
-            chunks:chunks,
+            chunks:chunks
         }));
         log(entryPath);
     }
