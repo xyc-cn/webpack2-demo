@@ -182,7 +182,7 @@ glob.sync(projectConfig.entrys, {
     }
 });
 //加载VUE 文件
-/*glob.sync(projectConfig.vueEntrys, {
+glob.sync(projectConfig.vueEntrys, {
     cwd: srcPath
 }).forEach(function (entryPath) {
     var aliaName = path.basename(entryPath, '.js');
@@ -205,5 +205,5 @@ glob.sync(projectConfig.entrys, {
           //  chunks:chunks
         }));
     }
-});*/
+});
 log('\r\n =============================================');
