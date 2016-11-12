@@ -1,7 +1,7 @@
 {
     "buildPath": "./release/",
     "srcPath": "./src/js/",
-    "publicPath": "/club/client/webProject/release/",
+    "publicPath": "/webpack2-demo/release/",
     "libsPath": "lib/",
     "entrys": "page/**/*.js",
     "vueEntrys": "../vue/**/*.js",

@@ -30,9 +30,9 @@ module.exports = {
         new webpack.DefinePlugin({
             __DEBUG__: !isProd
         }),
-        //zepto不打进文件里面，复制到发布目录
+        //复制lib到发布目录
         new CopyWebpackPlugin([{
-            from: projectConfig.libsPath + '/zepto.js',
+            from: projectConfig.libsPath,
             to: 'js/' + projectConfig.libsPath
         }], {
             namePattern: '[name].js'
@@ -166,6 +166,7 @@ glob.sync(projectConfig.entrys, {
         var chunks = {
             'js/lib/version': entryConfig
         };
+        log(entryName)
         chunks[entryName] = entryConfig;
         //加载html生成插件
         module.exports.plugins.push(new HtmlResWebpackPlugin({
@@ -178,11 +179,10 @@ glob.sync(projectConfig.entrys, {
             } : false,
             chunks: chunks
         }));
-        log(entryPath);
     }
 });
 //加载VUE 文件
-glob.sync(projectConfig.vueEntrys, {
+/*glob.sync(projectConfig.vueEntrys, {
     cwd: srcPath
 }).forEach(function (entryPath) {
     var aliaName = path.basename(entryPath, '.js');
@@ -202,9 +202,8 @@ glob.sync(projectConfig.vueEntrys, {
                 collapseWhitespace: true,
                 removeAttributeQuotes: true
             } : false,
-            chunks:chunks
+          //  chunks:chunks
         }));
-        log(entryPath);
     }
-});
+});*/
 log('\r\n =============================================');
